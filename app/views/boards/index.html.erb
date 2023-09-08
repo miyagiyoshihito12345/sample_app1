@@ -2,6 +2,11 @@
 
 <h1>Boards</h1>
 
+<%= search_form_for @q, url: boards_path do |f| %>
+  <%= f.search_field :title_cont, class: 'form-control', placeholder: '検索ワード' %>
+  <%= f.search_field :text_cont, class: 'form-control', placeholder: '検索ワード' %>
+  <%= f.submit '検索', class: 'btn btn-primary' %>
+<% end %>
 <table>
   <thead>
     <tr>
