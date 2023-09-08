@@ -148,6 +148,8 @@ GEM
       bundler (>= 1.15.0)
       railties (= 6.1.7.6)
       sprockets-rails (>= 2.0.0)
+    rails-autocomplete (2.0.1)
+      rails (>= 4.0)
     rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
@@ -243,6 +245,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.7, >= 6.1.7.6)
+  rails-autocomplete
   ransack (= 2.3.0)
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)
