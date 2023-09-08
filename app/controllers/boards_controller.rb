@@ -3,8 +3,23 @@ class BoardsController < ApplicationController
 
   # GET /boards or /boards.json
   def index
-    @q = Board.ransack(params[:q])
-    @boards = @q.result(distinct: true).order("created_at desc")
+    if params[:board] && params[:board][:title] && params[:board][:text]
+      @board_title = params[:board][:title]
+      @board_text = params[:board][:text]
+      @boards = Board.where("title LIKE ?", "%#{@board_title}%").where("text LIKE ?", "%#{@board_text}%")
+    elsif params[:board] && params[:board][:title]
+      @board_title = params[:board][:title]
+      @board_text = nil
+      @boards = Board.where("title LIKE ?", "%#{@board_title}%")
+    elsif params[:board] && params[:board][:text]
+      @board_title = nil
+      @board_text = params[:board][:text]
+      @boards = Board.where("text LIKE ?", "%#{@board_text}%")
+    else
+      @board_title = nil
+      @board_text = nil
+      @boards = Board.all
+    end
   end
 
   # GET /boards/1 or /boards/1.json
@@ -59,13 +74,13 @@ class BoardsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_board
-      @board = Board.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_board
+    @board = Board.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def board_params
-      params.require(:board).permit(:title, :text)
-    end
+  # Only allow a list of trusted parameters through.
+  def board_params
+    params.require(:board).permit(:title, :text)
+  end
 end
