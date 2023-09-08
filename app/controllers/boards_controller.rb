@@ -3,7 +3,8 @@ class BoardsController < ApplicationController
 
   # GET /boards or /boards.json
   def index
-    @boards = Board.all
+    @q = Board.ransack(params[:q])
+    @boards = @q.result(distinct: true).order("created_at desc")
   end
 
   # GET /boards/1 or /boards/1.json
